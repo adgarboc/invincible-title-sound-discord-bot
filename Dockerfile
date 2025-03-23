@@ -8,13 +8,11 @@
 
 ARG NODE_VERSION=22.14.0
 
-FROM node:${NODE_VERSION}-bullseye-slim
+FROM node:${NODE_VERSION}-alpine
 
-RUN apt-get update && apt-get install -y \
-    ffmpeg \
-    libopus-dev \
-    libsodium-dev \
-    && rm -rf /var/lib/apt/lists/*
+# Install ffmpeg
+RUN apk update
+RUN apk add --no-cache ffmpeg
 
 # Use production node environment by default.
 ENV NODE_ENV production
